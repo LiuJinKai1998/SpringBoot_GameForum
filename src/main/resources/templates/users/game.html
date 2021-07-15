@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>game论坛主页</title>
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/users/game.css}" rel="stylesheet">
+    <style>
+
+    </style>
+</head>
+<body>
+<div class="container" style="padding: 20px;box-shadow: 1px 1px 2px #888888;">
+    <ul class="nav nav-pills nav-fill">
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/home}">首页</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/userNews}">新闻</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/gamelist}">游戏库</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/article/artlist}">论坛</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/usercontent/}+${session.loginUser.getId()}" tabindex="-1" aria-disabled="true">个人信息</a>
+        </li>
+    </ul>
+</div>
+
+<div class="container">
+    <div style="padding-top: 20px"></div>
+    <!--帖子列表-->
+    <p><strong>新闻</strong></p>
+    <div class="list-group" th:each="art:${homenews}">
+        <a th:href="@{/article/get/}+${art.getId()}"   class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1" th:text="${art.title}"></h5>
+                <small th:text="${art.sid}"></small>
+            </div>
+            <p class="mb-1" th:text="${art.author}"></p>
+        </a>
+    </div>
+
+    <!--游戏展示-->
+    <div style="padding: 20px"></div>
+    <p><strong>游戏</strong></p>
+    <div class="container" style="display: flex;flex-direction: row">
+        <div class="card" style="width: 18rem;margin-right: 20px" th:each="gl:${indexgame}" >
+            <div class="card-body">
+                <h5 class="card-title" th:text="${gl.g_name}"></h5>
+                <p class="card-text" th:text="${gl.g_title}"></p>
+            </div>
+        </div>
+    </div>
+
+    <!--专题列表-->
+    <div style="padding: 20px"></div>
+    <p><strong>专题</strong></p>
+    <div class="list-group" th:each="speciall:${homespecial}">
+        <a th:href="@{/article/get/}+${speciall.aid}"   class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1" th:text="${speciall.spectitle}"></h5>
+                <small th:text="${speciall.speccont}"></small>
+            </div>
+        </a>
+    </div>
+
+
+</div>
+
+
+
+<script type="text/javascript" th:href="@{/js/jquery-3.2.1.slim.min.js}" ></script>
+<script type="text/javascript" th:href="@{/js/popper.min.js}" ></script>
+<script type="text/javascript" th:href="@{/js/bootstrap.min.js}" ></script>
+</body>
+</html>

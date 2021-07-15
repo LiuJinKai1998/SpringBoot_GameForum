@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>game论坛主页</title>
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/users/game.css}" rel="stylesheet">
+    <style>
+
+    </style>
+</head>
+<body>
+<div class="container" style="padding: 20px;box-shadow: 1px 1px 2px #888888;">
+    <ul class="nav nav-pills nav-fill">
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/home}">首页</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/userNews}">新闻</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/gamelist}">游戏库</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/article/artlist}">论坛</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/usercontent/}+${session.loginUser.getId()}" tabindex="-1" aria-disabled="true">个人信息</a>
+        </li>
+    </ul>
+</div>
+<div class="container">
+    <div style="padding-top: 20px"></div>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <form th:action="@{/addcontent}" method="post">
+            <input type="hidden" name="uid" th:value="${session.loginUser.id}">
+            <div class="form-group">
+                <label>手机号</label>
+                <input type="text" name="phone" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label>邮箱</label>
+                <input type="text" name="email" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label>性别</label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="0">
+                    <label class="form-check-label" for="inlineRadio1">女</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="1">
+                    <label class="form-check-label" for="inlineRadio2">男</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>头像</label>
+                <input type="text" Readonly value="null" name="img" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label>签名</label>
+                <input type="text" name="autograph" class="form-control" >
+            </div>
+            <button type="submit" class="btn btn-primary">添加</button>
+        </form>
+    </main>
+
+</div>
+
+<script type="text/javascript" th:href="@{/js/jquery-3.2.1.slim.min.js}" ></script>
+<script type="text/javascript" th:href="@{/js/popper.min.js}" ></script>
+<script type="text/javascript" th:href="@{/js/bootstrap.min.js}" ></script>
+</body>
+</html>

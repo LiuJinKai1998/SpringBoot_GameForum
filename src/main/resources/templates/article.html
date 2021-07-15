@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>文章</title>
+    <link rel="stylesheet" th:href="@{/css/examples/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/editormd.css}"/>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon"/>
+</head>
+<body>
+<div class="container" style="padding: 20px;box-shadow: 1px 1px 2px #888888;">
+    <ul class="nav nav-pills nav-fill">
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/home}">首页</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/userNews}">新闻</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/gamelist}">游戏库</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/article/artlist}">论坛</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/usercontent/}+${session.loginUser.getId()}" tabindex="-1" aria-disabled="true">个人信息</a>
+        </li>
+    </ul>
+</div>
+<div id="layout">
+    <header style="text-align: center">
+        <h1 th:text="${article.title}"></h1>
+        <h4 th:text="${article.author}"></h4>
+
+    </header>
+    <div id="test-editormd" style="width: 70%;margin: auto">
+        <textarea style="display:none;" th:text="${article.content}"></textarea>
+    </div>
+</div>
+
+<form th:action="@{/newhpost}" method="post">
+    <div style="margin-left: 10%">
+        <input type="hidden" readonly class="form-control" name="aid" id="aid" th:value="${article.id}">
+        <input type="hidden" readonly class="form-control" name="uid" id="staticEmail" th:value="${session.loginUser.getId()}">
+        <label  class="col-sm-2 col-form-label">回帖内容</label>
+        <div class="col-sm-10">
+            <input type="text" name="content" class="form-control" id="content">
+        </div>
+
+    <button type="submit" class="btn btn-primary">回帖</button>
+    </div>
+</form>
+<div style="padding: 20px;"></div>
+<div class="list-group" style="width: 50%;margin-left: 10%" th:each="art:${userhlist}">
+    <a href="#" class="list-group-item list-group-item-action" th:text="${art.content}"></a>
+</div>
+<div style="padding-bottom: 20px"></div>
+
+<script th:src="@{/js/examples/jquery.min.js}"></script>
+<script th:src="@{/lib/marked.min.js}"></script>
+<script th:src="@{/lib/prettify.min.js}"></script>
+<script th:src="@{/lib/raphael.min.js}"></script>
+<script th:src="@{/lib/underscore.min.js}"></script>
+<script th:src="@{/lib/sequence-diagram.min.js}"></script>
+<script th:src="@{/lib/flowchart.min.js}"></script>
+<script th:src="@{/lib/jquery.flowchart.min.js}"></script>
+<script th:src="@{/js/editormd.min.js}"></script>
+<script type="text/javascript">
+
+    var testEditor;
+
+    $(function () {
+        testEditor = editormd.markdownToHTML("test-editormd", {
+            width: "90%",
+            height: 700,
+            path: "../lib/",
+            preview: true,
+            watch: true,
+            editor: false,
+        })
+    })
+
+</script>
+</body>
+</html>

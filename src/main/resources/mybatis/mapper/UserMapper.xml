@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kai.mapper.UserMapper">
+
+    <select id="getUserList" resultType="User">
+        select * from user
+    </select>
+
+    <select id="getUserById" resultType="User">
+        select * from user where id = #{id}
+    </select>
+    <select id="ll" resultType="User">
+        select * from user where username=#{username} and password=#{password}
+    </select>
+
+    <insert id="newUser" parameterType="User">
+        insert into user (id,username,password,power) values (#{id},#{username},#{password},#{power})
+    </insert>
+
+    <insert id="regUser" parameterType="User">
+        insert into user (username,password) values (#{username},#{password})
+    </insert>
+
+    <update id="updateUser" parameterType="User">
+        update user set username=#{username},password=#{password},power=#{power} where id = #{id}
+    </update>
+
+    <delete id="deleteUser" parameterType="int">
+        delete from user where id = #{id}
+    </delete>
+</mapper>

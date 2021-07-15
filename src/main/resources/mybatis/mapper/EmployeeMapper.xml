@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kai.mapper.EmployeeMapper">
+
+    <select id="getAll" resultType="Employee">
+        select * from employee
+    </select>
+
+    <select id="getEmployeeById" resultType="Employee">
+        select * from employee where id = #{id}
+    </select>
+
+    <insert id="save" parameterType="Employee">
+        insert into employee (id,lastName,email,gender,birth) values (#{id},#{lastName},#{email},#{gender},#{birth})
+    </insert>
+
+    <update id="update" parameterType="Employee">
+        update employee set lastName=#{lastName},email=#{email},gender=#{gender},birth=#{birth} where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete from employee where id = #{id}
+    </delete>
+</mapper>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Simple example - Editor.md examples</title>
+    <link rel="stylesheet" th:href="@{/css/examples/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/editormd.css}"/>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon"/>
+</head>
+<body>
+<div class="container" style="padding: 20px;box-shadow: 1px 1px 2px #888888;">
+    <ul class="nav nav-pills nav-fill">
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/home}">首页</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/userNews}">新闻</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/gamelist}">游戏库</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/article/artlist}">论坛</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/usercontent/}+${session.loginUser.getId()}" tabindex="-1" aria-disabled="true">个人信息</a>
+        </li>
+    </ul>
+</div>
+<div id="layout">
+    <form  name="mdEditorForm" style="text-align: center;padding-top: 20px" th:action="@{/article/publish}" method="post">
+        <button type="submit" class="btn btn-primary">发布文章</button>
+                    <div style="margin-left: 10%">
+                        <div class="form-group row" style="width: 50%">
+                            <label for="inputPassword" class="col-sm-2 col-form-label">标题</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="title" class="form-control" id="inputPassword">
+                            </div>
+                        </div>
+                        <div class="form-group row" style="width: 50%">
+                            <label for="staticEmail" class="col-sm-2 col-form-label">用户名</label>
+                            <div class="col-sm-10">
+                                <input type="text" readonly class="form-control" name="author" id="staticEmail" th:value="${session.loginUser.getUsername()}">
+                            </div>
+                        </div>
+                        <div class="form-group row" style="width: 50%">
+                            <label for="staticEmail" class="col-sm-2 col-form-label">选择版块</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" name="sid">
+                                    <option  th:each="dept:${secname}" th:text="${dept.getSname}" th:value="${dept.getId()}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row" style="width: 50%">
+                            <label for="staticEmail" class="col-sm-2 col-form-label">关联游戏ID</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" name="g_id">
+                                    <option  th:each="artgame:${artgamelist}" th:text="${artgame.getG_name()}" th:value="${artgame.getG_id()}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row" style="width: 50%">
+                            <label for="staticEmail" class="col-sm-2 col-form-label">当前用户ID</label>
+                            <div class="col-sm-10">
+                                <input type="text" readonly class="form-control" name="uid" id="uid" th:value="${session.loginUser.getId()}">
+                            </div>
+                        </div>
+                    </div>
+        <div style="padding: 20px"></div>
+        <div id="test-editormd">
+            <textarea style="display:none;" name="content"></textarea>
+        </div>
+    </form>
+</div>
+<script th:src="@{/js/examples/jquery.min.js}"></script>
+<script th:src="@{/js/editormd.min.js}"></script>
+<script type="text/javascript">
+    var testEditor;
+
+    $(function () {
+        testEditor = editormd("test-editormd", {
+            width: "90%",
+            height: 640,
+            syncScrolling: "single",
+            path: "../lib/",
+            // 表示支持上传图片
+            imageUpload: true,
+            imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            // 上传图片的请求接口
+            imageUploadURL: "/article/image/upload",
+            // 工具栏图标的设置，大家可以自定义。比如 publish就是我定义的。
+            toolbarIcons: function () {
+                return ["undo", "redo", "|", "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|", "h1", "h2", "h3", "h4", "h5", "h6", "|", "list-ul", "list-ol", "hr", "|", "link", "reference-link", "image", "code", "preformatted-text", "code-block", "table", "datetime", "emoji", "html-entities", "pagebreak", "|", "goto-line", "watch", "preview", "fullscreen", "clear", "search", "|", "help", "info", "||", "publish"];
+            },
+            // 自定义图标后，定义图标对应的文字
+            toolbarIconTexts: {
+                publish: "<span bgcolor='gray'>发布</span>"
+            },
+            // 自定义图标的触发
+            toolbarHandlers: {
+                publish: function (cm, icon, cursor, selection) {
+                    mdEditorForm.method = "post";
+                    mdEditorForm.action = "/article/publish";//提交至服务器的路径
+                    mdEditorForm.submit();
+                }
+            }
+        });
+
+        /*
+        // or
+        testEditor = editormd({
+            id      : "test-editormd",
+            width   : "90%",
+            height  : 640,
+            path    : "../lib/"
+        });
+        */
+    });
+</script>
+</body>
+</html>

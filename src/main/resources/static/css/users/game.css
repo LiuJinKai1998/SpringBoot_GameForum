@@ -1,0 +1,10 @@
+#top{
+    height: 30px;
+    background-color: #69d3e3;
+    text-align: center;
+}
+/* Make the image fully responsive */
+.carousel-inner img {
+    width: 100%;
+    height: 100%;
+}

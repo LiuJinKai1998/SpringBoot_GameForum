@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>game论坛主页</title>
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/users/game.css}" rel="stylesheet">
+    <style>
+
+    </style>
+</head>
+<body>
+<div class="container" style="padding: 20px;box-shadow: 1px 1px 2px #888888;">
+    <ul class="nav nav-pills nav-fill">
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/home}">首页</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/userNews}">新闻</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/gamelist}">游戏库</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/article/artlist}">论坛</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/usercontent/}+${session.loginUser.getId()}" tabindex="-1" aria-disabled="true">个人信息</a>
+        </li>
+    </ul>
+</div>
+<div class="container">
+    <div style="padding-top: 20px"></div>
+    <div class="card mb-3" style="max-width: 540px;">
+        <div class="row no-gutters">
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${session.loginUser.username}"></h5>
+                    手机号：<p class="card-text" th:text="${usercontent.phone}"></p>
+                    邮箱：<p class="card-text"><small class="text-muted" th:text="${usercontent.email}"></small></p>
+                    签名：<p class="card-text"><small class="text-muted" th:text="${usercontent.autograph}"></small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="padding-top: 20px">
+        <button type="button" class="btn btn-warning"><a style="color: black" th:href="@{/userclock.html}">签到</a></button>
+        <button type="button" class="btn btn-info"><a style="color: white" th:href="@{/usermessage.html}">留言</a></button>
+        <button type="button" class="btn btn-danger"><a style="color: white" th:href="@{/logout}">注销</a></button>
+        <button type="button" class="btn btn-secondary"><a style="color: white" th:href="@{/main/}+${session.loginUser.getId()}">管理台</a></button>
+
+
+    </div>
+
+</div>
+
+<script type="text/javascript" th:href="@{/js/jquery-3.2.1.slim.min.js}" ></script>
+<script type="text/javascript" th:href="@{/js/popper.min.js}" ></script>
+<script type="text/javascript" th:href="@{/js/bootstrap.min.js}" ></script>
+</body>
+</html>

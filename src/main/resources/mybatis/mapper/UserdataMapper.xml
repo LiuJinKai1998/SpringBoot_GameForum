@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kai.mapper.UserdataMapper">
+
+    <select id="userdatalist" resultType="Userdata">
+        select * from userdata
+    </select>
+
+    <select id="getUserdataBydataid" resultType="Userdata">
+        select * from userdata where dataid = #{dataid}
+    </select>
+
+    <select id="getUserdataByuid" resultType="Userdata">
+        select * from userdata where uid = #{uid}
+    </select>
+
+    <insert id="newUserdata" parameterType="Userdata">
+        insert into userdata (uid,phone,email,gender,img,autograph) values (#{uid},#{phone},#{email},#{gender},#{img},#{autograph})
+    </insert>
+
+    <update id="upUserdata" parameterType="Userdata">
+        update userdata set uid=#{uid},phone=#{phone},email=#{email},gender=#{gender},img=#{img},autograph=#{autograph} where dataid = #{dataid}
+    </update>
+
+    <delete id="deleteUserdata" parameterType="int">
+        delete from userdata where dataid = #{dataid}
+    </delete>
+</mapper>

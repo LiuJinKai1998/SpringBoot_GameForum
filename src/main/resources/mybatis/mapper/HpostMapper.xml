@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kai.mapper.HpostMapper">
+
+    <select id="getHpostList" resultType="Hpost">
+        select * from hpost
+    </select>
+
+    <select id="getHpostById" resultType="Hpost">
+        select * from hpost where hid = #{hid}
+    </select>
+
+    <select id="getHpostByAid" resultType="Hpost">
+        select * from hpost where aid = #{aid}
+    </select>
+
+    <insert id="newHpost" parameterType="Hpost">
+        insert into hpost (aid,uid,content) values (#{aid},#{uid},#{content})
+    </insert>
+
+    <update id="upHpost" parameterType="Hpost">
+        update hpost set hid=#{hid},aid=#{aid},uid=#{uid},content=#{content} where hid = #{hid}
+    </update>
+
+    <delete id="deletHpost" parameterType="int">
+        delete from hpost where hid = #{hid}
+    </delete>
+</mapper>

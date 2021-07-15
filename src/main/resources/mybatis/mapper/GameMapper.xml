@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kai.mapper.GameMapper">
+
+    <select id="getGameList" resultType="Game">
+        select * from games
+    </select>
+
+    <select id="getGameById" resultType="Game">
+        select * from games where g_id = #{g_id}
+    </select>
+
+    <insert id="newGame" parameterType="Game">
+        insert into games (g_id,g_name,g_title,g_time,develop,publisher) values (#{g_id},#{g_name},#{g_title},#{g_time},#{develop},#{publisher})
+    </insert>
+
+    <update id="updateGame" parameterType="Game">
+        update games set g_id=#{g_id},g_name=#{g_name},g_title=#{g_title},g_time=#{g_time},develop=#{develop},publisher=#{publisher}  where g_id = #{g_id}
+    </update>
+
+    <delete id="deleteGame" parameterType="int">
+        delete from games where g_id = #{g_id}
+    </delete>
+</mapper>

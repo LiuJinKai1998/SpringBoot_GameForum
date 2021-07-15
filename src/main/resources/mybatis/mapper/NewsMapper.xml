@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kai.mapper.NewsMapper">
+
+    <select id="getNewsList" resultType="News">
+        select * from news
+    </select>
+
+    <select id="userNews" resultType="Article">
+        select id,author,title,sid from article where id in (select aid from news)
+    </select>
+
+    <select id="getNewsById" resultType="News">
+        select * from news where nid = #{nid}
+    </select>
+
+    <insert id="addNews" parameterType="News">
+        insert into news (aid) values (#{aid})
+    </insert>
+
+    <update id="upNews" parameterType="News">
+        update news set aid=#{aid} where nid = #{nid}
+    </update>
+
+    <delete id="deleteNews" parameterType="int">
+        delete from news where nid = #{nid}
+    </delete>
+</mapper>

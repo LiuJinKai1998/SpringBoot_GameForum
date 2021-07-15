@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kai.mapper.SpecialMapper">
+
+    <select id="getSpecialList" resultType="Special">
+        select * from special
+    </select>
+
+    <select id="getSpecialById" resultType="Special">
+        select * from special where sid = #{sid}
+    </select>
+
+    <insert id="newSpecial" parameterType="Special">
+        insert into special (aid,spectitle,speccont) values (#{aid},#{spectitle},#{speccont})
+    </insert>
+
+    <update id="upSpecial" parameterType="Special">
+        update special set aid=#{aid},spectitle=#{spectitle},speccont=#{speccont} where sid = #{sid}
+    </update>
+
+    <delete id="deleteSpecial" parameterType="int">
+        delete from special where sid = #{sid}
+    </delete>
+</mapper>

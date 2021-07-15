@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>游戏列表</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container" style="padding: 20px;box-shadow: 1px 1px 2px #888888;">
+    <ul class="nav nav-pills nav-fill">
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/home}">首页</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/userNews}">新闻</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/gamelist}">游戏库</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/article/artlist}">论坛</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/usercontent/}+${session.loginUser.getId()}" tabindex="-1" aria-disabled="true">个人信息</a>
+        </li>
+    </ul>
+</div>
+<div style="padding: 20px"></div>
+<div class="container" style="display: flex;flex-direction: row">
+    <div class="card" style="width: 18rem;margin-right: 20px" th:each="gl:${gamelist}" >
+        <!--    <img src="..." class="card-img-top" alt="...">-->
+        <div class="card-body">
+            <h5 class="card-title" th:text="${gl.g_name}"></h5>
+            <p class="card-text" th:text="${gl.g_title}"></p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" th:text="${#dates.format(gl.g_time, 'yyyy/MM/dd/ HH:mm')}"></li>
+            <li class="list-group-item" th:text="${gl.develop}"></li>
+            <li class="list-group-item" th:text="${gl.publisher}"></li>
+        </ul>
+        <div class="card-body">
+            <a href="#" class="card-link">Card link</a>
+            <a href="#" class="card-link">Another link</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kai.mapper.EvaluateMapper">
+
+    <select id="getEvaluateList" resultType="Evaluate">
+        select * from evaluate
+    </select>
+
+    <select id="getEvaluateById" resultType="Evaluate">
+        select * from evaluate where eid = #{eid}
+    </select>
+
+    <insert id="newEvaluate" parameterType="Evaluate">
+        insert into evaluate (g_id,uid,fraction,econtent,gamestate)
+        values (#{g_id},#{uid},#{fraction},#{econtent},#{gamestate})
+    </insert>
+
+    <update id="upEvaluate" parameterType="Evaluate">
+        update evaluate set g_id=#{g_id},uid=#{uid},fraction=#{fraction},econtent=#{econtent},gamestate=#{gamestate}
+        where eid = #{eid}
+    </update>
+
+    <delete id="deleteEvaluate" parameterType="int">
+        delete from evaluate where eid = #{eid}
+    </delete>
+</mapper>
